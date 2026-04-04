@@ -1,0 +1,142 @@
+04.04 12:23
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WhatsApp Chat</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            animation: fadeIn 1s ease-in-out;
+            width: 320px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #128C7E;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            animation: bounce 1s infinite alternate;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .code {
+            padding: 10px;
+            background: #eee;
+            border: 1px solid #ccc;
+            border-right: none;
+            border-radius: 6px 0 0 6px;
+            font-weight: bold;
+        }
+
+        input {
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 0 6px 6px 0;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #25D366;
+            box-shadow: 0 0 5px #25D366;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #25D366;
+            border: none;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #1ebd5a;
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <!-- WhatsApp Logo -->
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo" class="logo">
+
+    <h2>Enter number to message in WhatsApp</h2>
+
+    <div class="input-group">
+        <div class="code">+91</div>
+        <input type="text" id="number" placeholder="9876543210">
+    </div>
+
+    <button onclick="openWhatsApp()">Chat on WhatsApp</button>
+</div>
+
+<script>
+function openWhatsApp() {
+    var number = document.getElementById("number").value.trim();
+
+    if (!number) {
+        alert("Enter number to message in WhatsApp");
+        return;
+    }
+
+    // Remove non-numeric characters
+    number = number.replace(/[^0-9]/g, '');
+
+    // Add country code (India +91)
+    var fullNumber = "91" + number;
+
+    var url = "https://wa.me/" + fullNumber;
+
+    window.location.href = url;
+}
+</script>
+
+</body>
+</html>
