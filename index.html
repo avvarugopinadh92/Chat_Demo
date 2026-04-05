@@ -1,12 +1,12 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
-    <title> Chat Demo </title>
+    <title>Chat Demo</title>
 
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #25D366, #128C7E);
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
             height: 100vh;
             display: flex;
             justify-content: center;
@@ -20,27 +20,17 @@
             border-radius: 12px;
             text-align: center;
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            animation: fadeIn 1s ease-in-out;
-            width: 320px;
+            width: 340px;
         }
 
         h2 {
-            margin-bottom: 20px;
-            color: #128C7E;
-        }
-
-        .logo {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 20px;
-            animation: bounce 1s infinite alternate;
+            margin-bottom: 15px;
+            color: #2E7D32;
         }
 
         .input-group {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         .code {
@@ -52,34 +42,36 @@
             font-weight: bold;
         }
 
-        input {
+        input, textarea {
             padding: 10px;
-            width: 200px;
             border: 1px solid #ccc;
-            border-radius: 0 6px 6px 0;
             outline: none;
-            transition: 0.3s;
+            width: 100%;
         }
 
-        input:focus {
-            border-color: #25D366;
-            box-shadow: 0 0 5px #25D366;
+        input {
+            border-radius: 0 6px 6px 0;
+        }
+
+        textarea {
+            border-radius: 6px;
+            margin-bottom: 10px;
+            resize: none;
+            height: 60px;
         }
 
         button {
             padding: 10px 20px;
-            background: #25D366;
+            background: #4CAF50;
             border: none;
             color: white;
             border-radius: 6px;
             cursor: pointer;
             font-size: 16px;
-            transition: 0.3s;
         }
 
         button:hover {
-            background: #1ebd5a;
-            transform: scale(1.05);
+            background: #43a047;
         }
 
         .note {
@@ -88,26 +80,10 @@
             margin-top: 10px;
         }
 
-        .warning {
+        .about {
             font-size: 12px;
-            color: red;
-            margin-top: 5px;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes bounce {
-            from { transform: translateY(0); }
-            to { transform: translateY(-10px); }
+            color: #555;
+            margin-top: 15px;
         }
     </style>
 </head>
@@ -115,46 +91,51 @@
 <body>
 
 <div class="container">
-    <!-- WhatsApp Logo -->
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo" class="logo">
-
-    <h2>Enter number to message on WhatsApp</h2>
+    <h2>Chat Demo</h2>
 
     <div class="input-group">
         <div class="code">+91</div>
-        <input type="text" id="number" placeholder="9876543210">
+        <input type="text" id="number" placeholder="Enter mobile number">
     </div>
 
-    <button onclick="openWhatsApp()">Chat on WhatsApp</button>
+    <textarea id="message" placeholder="Type your message (optional)"></textarea>
 
-    <!-- Trust & Disclaimer -->
-    <p class="note">We do not store or share your phone number.</p>
-    <p class="warning">This is not an official WhatsApp website.</p>
+    <button onclick="openChat()">Start Chat</button>
+
+    <p class="note">We do not store or share your data.</p>
+
+    <div class="about">
+        <p>This is a simple demo tool to open chat links without saving numbers.</p>
+        <p>This site is not affiliated with any messaging platform.</p>
+    </div>
 </div>
 
 <script>
-function openWhatsApp() {
+function openChat() {
     var number = document.getElementById("number").value.trim();
+    var message = document.getElementById("message").value.trim();
 
     if (!number) {
-        alert("Enter number to message on WhatsApp");
+        alert("Please enter a mobile number");
         return;
     }
 
-    // Remove non-numeric characters
     number = number.replace(/[^0-9]/g, '');
 
-    // Validate 10-digit number
     if (number.length !== 10) {
-        alert("Enter valid 10-digit number");
+        alert("Enter a valid 10-digit number");
         return;
     }
 
     var fullNumber = "91" + number;
+
     var url = "https://wa.me/" + fullNumber;
 
-    // Ask user confirmation (important for browser trust)
-    if (confirm("Do you want to open WhatsApp chat?")) {
+    if (message) {
+        url += "?text=" + encodeURIComponent(message);
+    }
+
+    if (confirm("Do you want to continue to chat?")) {
         window.open(url, "_blank");
     }
 }
