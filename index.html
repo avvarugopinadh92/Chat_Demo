@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html>
 <head>
     <title> Chat Demo </title>
@@ -82,6 +82,18 @@
             transform: scale(1.05);
         }
 
+        .note {
+            font-size: 12px;
+            color: gray;
+            margin-top: 10px;
+        }
+
+        .warning {
+            font-size: 12px;
+            color: red;
+            margin-top: 5px;
+        }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -106,7 +118,7 @@
     <!-- WhatsApp Logo -->
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo" class="logo">
 
-    <h2>Enter number to message in WhatsApp</h2>
+    <h2>Enter number to message on WhatsApp</h2>
 
     <div class="input-group">
         <div class="code">+91</div>
@@ -114,6 +126,10 @@
     </div>
 
     <button onclick="openWhatsApp()">Chat on WhatsApp</button>
+
+    <!-- Trust & Disclaimer -->
+    <p class="note">We do not store or share your phone number.</p>
+    <p class="warning">This is not an official WhatsApp website.</p>
 </div>
 
 <script>
@@ -121,19 +137,26 @@ function openWhatsApp() {
     var number = document.getElementById("number").value.trim();
 
     if (!number) {
-        alert("Enter number to message in WhatsApp");
+        alert("Enter number to message on WhatsApp");
         return;
     }
 
     // Remove non-numeric characters
     number = number.replace(/[^0-9]/g, '');
 
-    // Add country code (India +91)
-    var fullNumber = "91" + number;
+    // Validate 10-digit number
+    if (number.length !== 10) {
+        alert("Enter valid 10-digit number");
+        return;
+    }
 
+    var fullNumber = "91" + number;
     var url = "https://wa.me/" + fullNumber;
 
-    window.location.href = url;
+    // Ask user confirmation (important for browser trust)
+    if (confirm("Do you want to open WhatsApp chat?")) {
+        window.open(url, "_blank");
+    }
 }
 </script>
 
